@@ -1,3 +1,3 @@
-API_TOKEN = '7864055262:AAF1-edJO4KGYGbIN3Wo6Ai7UaA825tpyG0'
-info_channel = -4594194923
-botadmin = 85236662
+API_TOKEN = ''
+info_channel = 
+botadmin = 
