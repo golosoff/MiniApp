@@ -59,14 +59,14 @@
 </head>
 <body>
 
-<h1>Сообщить о проблеме в MiniApp Blum</h1>
-<p><small><small>*Форму необходимо заполнять с аккаунта на котором существует проблема с Blum MiniApp</small></small></p>
+<h1>Сообщить о проблеме</h1>
+<p><small><small>*Форму необходимо заполнять с аккаунта на котором существует проблема</small></small></p>
 <p>***********************</p>
 
 <div class="form-group">
     <label for="problemshort">Краткое описание проблемы:</label>
     <input type="text" id="problemshort" name="problemshort" required>
-    <p><small><small>*Кратко опишите, что случилось (например, «Не удаётся войти в Мемпад»</small></small></p>
+    <p><small><small>*Кратко опишите, что случилось (например, «Не удаётся войти в ........»</small></small></p>
 </div>
 
 <div class="form-group">
@@ -93,27 +93,12 @@
     <label for="categoryselection">Категория:</label>
     <select id="categoryselection" name="categoryselection">
         <option value="Account">Аккаунт</option>
-        <option value="Game">Drop Game</option>
-        <option value="Log in Streak">Серия входов</option>
-        <option value="Points">Начисление BP</option>
-        <option value="Ref points">Начисления от рефералов</option>
-        <option value="Tribe issue">Проблема с Трайбами</option>
         <option value="Task Transaction">Транзакции в заданиях</option>
         <option value="Task">Задания</option>
-        <option value="MemePad issue">Проблема с MemePad</option>
-        <option value="Refund from Blum">Возврат средств</option>
         <option value="Vulnerability">Уязвимость</option>
         <option value="Wallet">Кошелек</option>
-        <option value="Bug">Баг</option>
-        <option value="Other">Другое</option>
     </select>
     <p><small><small>*Выберите подходящую категорию.</small></small></p>
-</div>
-
-<div class="form-group">
-    <label for="blumname">Имя в Blum:</label>
-    <input type="text" id="blumname" name="blumname" required>
-    <p><small><small>*Имя пользователя в Blum, на главной странице MiniApp Blum.</small></small></p>
 </div>
 
 <div class="form-group">
@@ -169,7 +154,6 @@
             let actualresult = document.getElementById('actualresult').value;
             let problemdescription = document.getElementById('problemdescription').value;
             let categoryselection = document.getElementById('categoryselection').value;
-            let blumname = document.getElementById('blumname').value;
             let device = document.getElementById('device').value;
             let osversion = document.getElementById('osversion').value;
             let location = document.getElementById('location').value;
@@ -181,7 +165,6 @@
                 actualresult: actualresult,
                 problemdescription: problemdescription,
                 categoryselection: categoryselection,
-                blumname: blumname,
                 device: device,
                 osversion: osversion,
                 location: location,
