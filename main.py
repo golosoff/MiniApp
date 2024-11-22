@@ -20,7 +20,7 @@ async def send_welcome(message: types.Message):
     webAppInfo = WebAppInfo(url="https://blumticket.web.app")
     inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Сообщить о проблеме', web_app=webAppInfo)]])
     await message.answer(
-        text=f"Добро пожаловать {message.from_user.first_name}, это бот регистрации проблемы в приложении Blum, нажмите кнопку \"Сообщить о проблеме\", чтобы открыть форму и зарегистрировать проблему..",
+        text=f"Добро пожаловать {message.from_user.first_name}, это бот регистрации проблемы, нажмите кнопку \"Сообщить о проблеме\", чтобы открыть форму и зарегистрировать проблему..",
         reply_markup=inline_keyboard
     )
     await bot.send_message(chat_id=settings.botadmin, text=f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) нажал Start")
@@ -35,7 +35,6 @@ async def handle_webapp_data(message: types.Message):
     actualresult = data["actualresult"]
     problemdescription = data["problemdescription"]
     categoryselection = data["categoryselection"]
-    blumname = data["blumname"]
     device = data["device"]
     osversion = data["osversion"]
     location = data["location"]
@@ -50,7 +49,6 @@ async def handle_webapp_data(message: types.Message):
                    f"*• Actual:* `{actualresult}`\n"
                    f"*• Description:* `{problemdescription}`\n"
                    f"*• Category:* `{categoryselection}`\n"
-                   f"*• Blum Name:* `{blumname}`\n"
                    f"*• Device:* `{device}`\n"
                    f"*• OS Version:* `{osversion}`\n"
                    f"*• Location:* `{location}`\n"
@@ -62,7 +60,7 @@ async def handle_webapp_data(message: types.Message):
                    f"*• TicketID:* `{query_id}`\n"
                    f"*• Date:* {current_time} GMT +5")
 
-    # Использование метода answerWebAppQuery для отправки сообщения от имени пользователя
+
     await bot.answer_web_app_query(
             web_app_query_id=query_id,
             result=InlineQueryResultArticle(
