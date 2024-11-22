@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Форма заявки</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+        * {
+            margin: 1px;
+            padding: 1px;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: normal;
+            color: var(--tg-theme-text-color);
+            background: var(--tg-theme-bg-color);
+        }
+        .form-group {
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border-radius: 10px; /* Применяем закругление только к полям ввода и текстовой области */
+            border: 1px solid #ccc; /* Добавляем границу для визуализации округления */
+            background: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: var(--tg-theme-secondary-bg-color);
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: var(--tg-theme-button-color);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Сообщить о проблеме в MiniApp Blum</h1>
+<p><small><small>*Форму необходимо заполнять с аккаунта на котором существует проблема с Blum MiniApp</small></small></p>
+<p>***********************</p>
+
+<div class="form-group">
+    <label for="problemshort">Краткое описание проблемы:</label>
+    <input type="text" id="problemshort" name="problemshort" required>
+    <p><small><small>*Кратко опишите, что случилось (например, «Не удаётся войти в Мемпад»</small></small></p>
+</div>
+
+<div class="form-group">
+    <label for="waitresult">Ожидаемый результат:</label>
+    <input type="text" id="waitresult" name="waitresult" required>
+    <p><small><small>*Какого результата вы ожидали?</small></small></p>
+</div>
+
+
+<div class="form-group">
+    <label for="actualresult">Фактический результат:</label>
+    <input type="text" id="actualresult" name="actualresult" required>
+    <p><small><small>*Что произошло на самом деле?</small></small></p>
+</div>
+
+<div class="form-group">
+    <label for="problemdescription">Описание — Подробности:</label>
+    <textarea id="problemdescription" name="problemdescription" rows="4" required></textarea>
+    <p><small><small>*Какие действия привели к ошибке или другие важные детали.</small></small></p>
+</div>
+
+
+<div class="form-group">
+    <label for="categoryselection">Категория:</label>
+    <select id="categoryselection" name="categoryselection">
+        <option value="Account">Аккаунт</option>
+        <option value="Game">Drop Game</option>
+        <option value="Log in Streak">Серия входов</option>
+        <option value="Points">Начисление BP</option>
+        <option value="Ref points">Начисления от рефералов</option>
+        <option value="Tribe issue">Проблема с Трайбами</option>
+        <option value="Task Transaction">Транзакции в заданиях</option>
+        <option value="Task">Задания</option>
+        <option value="MemePad issue">Проблема с MemePad</option>
+        <option value="Refund from Blum">Возврат средств</option>
+        <option value="Vulnerability">Уязвимость</option>
+        <option value="Wallet">Кошелек</option>
+        <option value="Bug">Баг</option>
+        <option value="Other">Другое</option>
+    </select>
+    <p><small><small>*Выберите подходящую категорию.</small></small></p>
+</div>
+
+<div class="form-group">
+    <label for="blumname">Имя в Blum:</label>
+    <input type="text" id="blumname" name="blumname" required>
+    <p><small><small>*Имя пользователя в Blum, на главной странице MiniApp Blum.</small></small></p>
+</div>
+
+<div class="form-group">
+    <label for="device">Устройство:</label>
+    <input type="text" id="device" name="device" required>
+    <p><small><small>*Модель твоего устройства (например, iPhone 12, Samsung Galaxy S21).</small></small></p>
+</div>
+
+<div class="form-group">
+    <label for="osversion">Операционная система:</label>
+    <input type="text" id="osversion" name="osversion" required>
+    <p><small><small>*Версия ОС устройства (например, iOS 16, Android 11).</small></small></p>
+</div>
+
+<div class="form-group">
+    <label for="location">Местоположение:</label>
+    <input type="text" id="location" name="location" required>
+    <p><small><small>*Город или страна.</small></small></p>
+</div>
+
+
+<div>
+    <button id="sendData">Отправить данные</button>
+</div>
+
+<p><small><small><strong>TgID :</strong> <span id="user_id"></span></small></small></p>
+<p><small><small><strong>Юзернейм:</strong> <span id="username"></span></small></small></p>
+<p><small><small><strong>Имя:</strong> <span id="first_name"></span></small></small></p>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let tg = window.Telegram.WebApp;
+        let query_id = tg.initDataUnsafe.query_id;
+        let user_id = tg.initDataUnsafe.user.id;
+        let username = tg.initDataUnsafe.user.username;
+        let first_name = tg.initDataUnsafe.user.first_name;
+        tg.expand()
+
+        // Логирование данных для отладки
+        console.log("Query ID:", query_id);
+        console.log("User ID:", user_id);
+        console.log("Username:", username);
+        console.log("First Name:", first_name);
+
+        // Отображение данных на странице
+        document.getElementById('user_id').innerText = user_id;
+        document.getElementById('username').innerText = username;
+        document.getElementById('first_name').innerText = first_name;
+
+        document.getElementById('sendData').addEventListener('click', function () {
+            let problemshort = document.getElementById('problemshort').value;
+            let waitresult = document.getElementById('waitresult').value;
+            let actualresult = document.getElementById('actualresult').value;
+            let problemdescription = document.getElementById('problemdescription').value;
+            let categoryselection = document.getElementById('categoryselection').value;
+            let blumname = document.getElementById('blumname').value;
+            let device = document.getElementById('device').value;
+            let osversion = document.getElementById('osversion').value;
+            let location = document.getElementById('location').value;
+
+            let resultData = JSON.stringify({
+                query_id: query_id,
+                problemshort: problemshort,
+                waitresult: waitresult,
+                actualresult: actualresult,
+                problemdescription: problemdescription,
+                categoryselection: categoryselection,
+                blumname: blumname,
+                device: device,
+                osversion: osversion,
+                location: location,
+                user_id: user_id,
+                username: username,
+                first_name: first_name
+            });
+
+            console.log("Sending Data:", resultData); // Логирование данных для отладки
+            tg.sendData(resultData);  // Отправка данных обратно в бот
+        });
+    });
+</script>
+
+</body>
+</html>
