@@ -23,7 +23,6 @@ async def send_welcome(message: types.Message):
         text=f"Добро пожаловать {message.from_user.first_name}, это бот регистрации проблемы, нажмите кнопку \"Сообщить о проблеме\", чтобы открыть форму и зарегистрировать проблему..",
         reply_markup=inline_keyboard
     )
-    await bot.send_message(chat_id=settings.botadmin, text=f"[{message.from_user.first_name}](tg://user?id={message.from_user.id}) нажал Start")
 
 @dp.message(F.web_app_data)
 async def handle_webapp_data(message: types.Message):
