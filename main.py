@@ -17,7 +17,7 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def send_welcome(message: types.Message):
-    webAppInfo = WebAppInfo(url="https://blumticket.web.app")
+    webAppInfo = WebAppInfo(url="url")
     inline_keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Сообщить о проблеме', web_app=webAppInfo)]])
     await message.answer(
         text=f"Добро пожаловать {message.from_user.first_name}, это бот регистрации проблемы, нажмите кнопку \"Сообщить о проблеме\", чтобы открыть форму и зарегистрировать проблему..",
